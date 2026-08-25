@@ -29,14 +29,16 @@ export function runLoader() {
         for (let n = 0; n < speed && li < BOOT_LINES.length; n++) {
           ci++;
           if (ci >= BOOT_LINES[li].length) {
-            logEl.textContent += BOOT_LINES[li] + '\n';
             li++; ci = 0;
             fill.style.width = `${Math.round((li / BOOT_LINES.length) * 100)}%`;
+            if (li >= BOOT_LINES.length) break;
           }
         }
-        if (li < BOOT_LINES.length && ci > 0) {
+        if (li < BOOT_LINES.length) {
           logEl.textContent = BOOT_LINES.slice(0, li).join('\n') +
             (li ? '\n' : '') + BOOT_LINES[li].slice(0, ci);
+        } else {
+          logEl.textContent = BOOT_LINES.join('\n') + '\n';
         }
         requestAnimationFrame(tick);
       } else if (elapsed > 1500) {
