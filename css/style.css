@@ -1,0 +1,843 @@
+/* ═══════════════════════════════════════════════
+   MORTEZA VAEZI · DEV CAVE PORTFOLIO
+   dark cinematic theme · accent cyan
+   ═══════════════════════════════════════════════ */
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('../fonts/SpaceGrotesk-latin.woff2') format('woff2');
+  font-weight: 300 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../fonts/JetBrainsMono-latin.woff2') format('woff2');
+  font-weight: 100 800;
+  font-display: swap;
+}
+
+:root {
+  --bg: #07070d;
+  --ink: #e8ecf1;
+  --dim: #8b93a3;
+  --accent: #00f0ff;
+  --accent-soft: rgba(0, 240, 255, 0.12);
+  --violet: #a855f7;
+  --glass: rgba(13, 16, 26, 0.55);
+  --line: rgba(255, 255, 255, 0.08);
+  --mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: initial; }
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--accent); color: #001318; }
+
+::-webkit-scrollbar { width: 9px; }
+::-webkit-scrollbar-track { background: #0a0a12; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent), #0077ff);
+  border-radius: 99px;
+  border: 2px solid #0a0a12;
+}
+
+/* ── WebGL canvas ─────────────────────────────── */
+#webgl {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: block;
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 45%, transparent 55%, rgba(0, 0, 8, 0.55) 100%),
+    linear-gradient(180deg, rgba(0, 0, 10, 0.35), transparent 18%, transparent 82%, rgba(0, 0, 10, 0.45));
+}
+
+/* ── Loader ───────────────────────────────────── */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg);
+  display: grid;
+  place-items: center;
+  transition: opacity 0.7s ease, visibility 0.7s;
+}
+#loader.done { opacity: 0; visibility: hidden; }
+
+.loader-box { width: min(520px, 86vw); }
+.loader-box pre {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: #37e6a0;
+  text-shadow: 0 0 12px rgba(55, 230, 160, 0.4);
+  min-height: 132px;
+  white-space: pre-wrap;
+}
+.loader-bar {
+  margin-top: 18px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.loader-bar span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), #0077ff);
+  box-shadow: 0 0 14px var(--accent);
+  transition: width 0.25s ease;
+}
+.loader-hint {
+  margin-top: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+  letter-spacing: 0.04em;
+}
+
+/* ── Top bar ──────────────────────────────────── */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 34px;
+  mix-blend-mode: normal;
+}
+.logo {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+.logo span { color: var(--accent); text-shadow: 0 0 16px rgba(0, 240, 255, 0.65); }
+.status-badge {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  color: #9aa3b5;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: rgba(10, 12, 20, 0.5);
+  backdrop-filter: blur(8px);
+}
+.status-badge i {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #37e6a0;
+  box-shadow: 0 0 10px #37e6a0;
+  animation: pulse 1.8s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.8); }
+}
+
+/* ── Nav dots ─────────────────────────────────── */
+#dots {
+  position: fixed;
+  right: 26px;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.dot {
+  position: relative;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  pointer-events: auto;
+}
+.dot::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  translate: 0 -50%;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+.dot:hover::after { opacity: 1; transform: translateX(0); }
+.dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 14px var(--accent);
+}
+
+/* ── Panels / sections ────────────────────────── */
+main { position: relative; z-index: 2; }
+
+.panel {
+  height: 100vh;
+  height: 100svh;
+  display: flex;
+  padding: 90px clamp(24px, 6vw, 84px);
+  pointer-events: none;
+}
+.panel .inner { max-width: 560px; }
+.panel a, .panel button { pointer-events: auto; }
+
+/* ── soft, edge-faded readability scrim — no visible box ── */
+.term-window {
+  position: relative;
+  padding: 30px 34px;
+}
+.term-window::before {
+  content: '';
+  position: absolute;
+  inset: -46px;
+  z-index: -1;
+  /* The scrim must never arrive before the text it exists to support, so it
+     eases in with the panel. NOTE: do not fade this with `opacity` — an
+     element that is both semi-transparent and backdrop-filtered gets its own
+     compositing layer and Chrome drops the blur entirely. Animating the blur
+     radius and the gradient alpha keeps the effect alive throughout. */
+  /* Keep the falloff INSIDE the element. A radial-gradient sized `ellipse X% Y%`
+     uses X% of the width as its radius, so anything much past ~50% is still
+     opaque where the box ends and the scrim reads as a hard rectangle. These
+     stops land on zero right about at the edge, which is what keeps it an
+     organic blob with no visible box. Legibility out at the text corners is
+     the text-shadow's job, not the scrim's — an ellipse that fades within its
+     own bounds can never reach a rectangle's corners. */
+  background: radial-gradient(ellipse 70% 62% at 50% 50%,
+    rgba(5, 7, 13, 0) 0%,
+    rgba(5, 7, 13, 0) 50%,
+    rgba(5, 7, 13, 0) 74%);
+  backdrop-filter: blur(0px) saturate(1);
+  -webkit-backdrop-filter: blur(0px) saturate(1);
+  mask-image: radial-gradient(ellipse 72% 64% at 50% 50%, #000 42%, transparent 74%);
+  -webkit-mask-image: radial-gradient(ellipse 72% 64% at 50% 50%, #000 42%, transparent 74%);
+  pointer-events: none;
+  transition: backdrop-filter 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              -webkit-backdrop-filter 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.panel.active .term-window::before {
+  background: radial-gradient(ellipse 70% 62% at 50% 50%,
+    rgba(5, 7, 13, var(--scrim-a, 0.52)) 0%,
+    rgba(5, 7, 13, calc(var(--scrim-a, 0.52) * 0.7)) 50%,
+    rgba(5, 7, 13, 0) 74%);
+  backdrop-filter: blur(var(--scrim-blur, 12px)) saturate(0.94);
+  -webkit-backdrop-filter: blur(var(--scrim-blur, 12px)) saturate(0.94);
+}
+
+/* Per-section weight: how much scrim a panel needs depends on how much text
+   it puts over the scene and how busy the scene is behind it. */
+.panel.hero        { --scrim-blur: 9px;  --scrim-a: 0.42; }
+.panel.about       { --scrim-blur: 15px; --scrim-a: 0.6; }
+.panel.experience  { --scrim-blur: 13px; --scrim-a: 0.56; }
+.panel.skills      { --scrim-blur: 15px; --scrim-a: 0.6; }
+.panel.projects    { --scrim-blur: 11px; --scrim-a: 0.5; }
+.panel.contact     { --scrim-blur: 3px;  --scrim-a: 0.22; }
+
+/* With the scrim kept deliberately tight, the glyph shadow is what carries
+   contrast out at the edges — the chip cloud and tagline sit well past where
+   the ellipse has any alpha left. A tight dark shadow plus a wide soft one
+   reads as depth rather than as a halo. */
+.term-body {
+  text-shadow: 0 1px 2px rgba(2, 4, 9, 0.98),
+               0 1px 5px rgba(2, 4, 9, 0.9),
+               0 2px 18px rgba(2, 4, 9, 0.75);
+}
+.panel.contact .term-body { text-shadow: 0 1px 3px rgba(2, 4, 9, 0.75); }
+.term-body { padding: 0; }
+
+.align-bottom-left { align-items: flex-end; }
+.align-right      { align-items: center; justify-content: flex-end; }
+.align-left       { align-items: center; justify-content: flex-start; }
+.align-center     { align-items: center; justify-content: center; text-align: center; }
+.align-center .inner { max-width: 720px; }
+
+/* reveal choreography */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.d1 { transition-delay: 0.08s; } .d2 { transition-delay: 0.18s; }
+.d3 { transition-delay: 0.28s; } .d4 { transition-delay: 0.40s; }
+.d5 { transition-delay: 0.52s; }
+.panel.active .reveal { opacity: 1; transform: translateY(0); }
+
+/* typography bits */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  color: var(--accent);
+  text-shadow: 0 0 18px rgba(0, 240, 255, 0.5);
+  margin-bottom: 18px;
+}
+h1 {
+  font-size: clamp(36px, 4.6vw, 62px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: clamp(34px, 4.6vw, 58px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  margin-bottom: 22px;
+}
+.accent { color: var(--accent); text-shadow: 0 0 26px rgba(0, 240, 255, 0.45); }
+.role {
+  font-family: var(--mono);
+  font-size: clamp(14px, 1.6vw, 19px);
+  color: #c8d2df;
+  margin-top: 14px;
+  letter-spacing: 0.06em;
+}
+.tagline {
+  margin-top: 16px;
+  color: var(--dim);
+  font-size: 15.5px;
+  line-height: 1.65;
+}
+.body {
+  color: #c2cad6;
+  font-size: 16.5px;
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+.body b { color: var(--accent); font-family: var(--mono); font-size: 0.92em; }
+.body.dim { color: var(--dim); font-size: 15px; }
+.meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim);
+  letter-spacing: 0.06em;
+  margin-top: 8px;
+}
+.meta .pin { color: var(--accent); margin-right: 6px; }
+
+/* hero extras */
+.hero .scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.3em;
+  color: var(--dim);
+}
+.mouse-wheel {
+  width: 17px; height: 27px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 99px;
+  position: relative;
+}
+.mouse-wheel::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 5px;
+  width: 3px; height: 6px;
+  translate: -50% 0;
+  border-radius: 3px;
+  background: var(--accent);
+  animation: wheel 1.6s infinite;
+}
+@keyframes wheel {
+  0% { opacity: 1; transform: translateY(0); }
+  70% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 0; }
+}
+
+/* stats */
+.stats {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 30px;
+  margin-top: 26px;
+}
+.stats li b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 30px;
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+}
+.stats li span {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+
+/* skills */
+.skill-group { margin-bottom: 20px; }
+.skill-group h3 {
+  font-family: var(--mono);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #dfe7f0;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.skill {
+  display: grid;
+  grid-template-columns: 205px 1fr;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.skill > span {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: #b6c0cf;
+  white-space: nowrap;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
+}
+.skill > i {
+  position: relative;
+  display: block;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 99px;
+  overflow: visible;
+}
+.skill > i::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  background: linear-gradient(90deg, #0077ff, var(--accent));
+  border-radius: 99px;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.55);
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.35s;
+}
+.skill > i b {
+  position: absolute;
+  left: var(--w);
+  top: 50%;
+  translate: 10px -50%;
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 10px;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.5s ease 1.2s;
+}
+.panel.active .skill > i::before { width: var(--w); }
+.panel.active .skill > i b { opacity: 1; }
+
+.chip-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.chip-cloud span {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: #aab4c4;
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* experience — git log timeline */
+.commit {
+  border-left: 2px solid rgba(0, 240, 255, 0.25);
+  padding: 2px 0 14px 16px;
+  margin-bottom: 14px;
+  position: relative;
+}
+.commit::before {
+  content: '';
+  position: absolute;
+  left: -5px; top: 4px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+}
+.commit-head {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.commit .hash {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #ffd866;
+  background: rgba(255, 216, 102, 0.08);
+  border: 1px solid rgba(255, 216, 102, 0.18);
+  padding: 1px 8px;
+  border-radius: 4px;
+}
+.commit .branch {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: #37e6a0;
+  background: rgba(55, 230, 160, 0.08);
+  border: 1px solid rgba(55, 230, 160, 0.2);
+  padding: 1px 8px;
+  border-radius: 99px;
+}
+/* pinned commit list — the section is taller than the viewport by --pin-extra,
+   the stage sticks, and js/pin.js maps that extra scroll onto .commit-track */
+.panel.experience {
+  display: block;
+  height: calc(100svh + var(--pin-extra, 0px));
+  padding: 0;
+}
+.panel.experience .pin-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 90px clamp(24px, 6vw, 84px);
+}
+
+.commit-scroll {
+  max-height: var(--commit-box, 46svh);
+  overflow: hidden;
+  scrollbar-width: none;
+  /* Soft clip on the cut edges. Keep these short — a long top fade darkens a
+     full-width band and reads as a drop shadow cast by the heading above. */
+  mask-image: linear-gradient(180deg, transparent 0, #000 7px,
+                              #000 calc(100% - 10px), transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 7px,
+                                      #000 calc(100% - 10px), transparent 100%);
+}
+.commit-scroll::-webkit-scrollbar { display: none; }
+/* the bottom fade eats into the gap — give the meta line some air back */
+.commit-scroll + .meta { margin-top: 16px; }
+.commit-track {
+  will-change: transform;
+  padding-bottom: 2px;
+}
+/* the fade mask would clip the timeline's glow dots — keep them inside */
+.commit-track .commit:first-child { padding-top: 6px; }
+.commit-track .commit:last-child { margin-bottom: 0; }
+
+.commit h3 { font-size: 15.5px; font-weight: 600; margin-bottom: 4px; }
+.commit h3 em {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 11px;
+  color: var(--dim);
+}
+.commit p { color: var(--dim); font-size: 13px; line-height: 1.55; }
+.commit p code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  color: #b6c0cf;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+/* pinned project list — mirrors the pinned commit list;
+   taller than viewport by --proj-pin-extra, stage sticks, and
+   js/pin.js maps that extra onto .project-track. When the list
+   fits (4 projects) extra is 0 and it behaves like a normal panel. */
+.panel.projects {
+  display: block;
+  height: calc(100svh + var(--proj-pin-extra, 0px));
+  padding: 0;
+}
+.panel.projects .pin-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 90px clamp(24px, 6vw, 84px);
+}
+.project-scroll {
+  max-height: var(--project-box, 60svh);
+  overflow: hidden;
+  scrollbar-width: none;
+  mask-image: linear-gradient(180deg, transparent 0, #000 7px, #000 calc(100% - 10px), transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 7px, #000 calc(100% - 10px), transparent 100%);
+}
+.project-scroll::-webkit-scrollbar { display: none; }
+.project-track {
+  will-change: transform;
+  padding-bottom: 2px;
+}
+.projects .eyebrow { margin-bottom: 10px; }
+.projects h2 { font-size: clamp(30px, 3.8vw, 48px); margin-bottom: 12px; }
+.projects .term-body { padding: 18px 24px 20px; }
+.project {
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--accent);
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 11px 16px;
+  margin-bottom: 8px;
+  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+.project:hover {
+  transform: translateX(6px);
+  border-left-color: var(--violet);
+  background: rgba(20, 24, 38, 0.72);
+}
+.project header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.p-num { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; }
+.project h3 { font-size: 17.5px; font-weight: 600; letter-spacing: 0.01em; }
+.project em { margin-left: auto; font-family: var(--mono); font-style: normal; font-size: 11px; color: var(--dim); }
+.project p { color: var(--dim); font-size: 13px; line-height: 1.45; margin-bottom: 6px; }
+.tags { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.tags li {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: #9fd9e2;
+  background: var(--accent-soft);
+  border: 1px solid rgba(0, 240, 255, 0.18);
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+
+/* contact */
+.contact-actions { display: flex; gap: 14px; justify-content: center; align-items: center; margin: 26px 0 30px; }
+.btn {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  padding: 14px 26px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.btn.primary {
+  color: #02161a;
+  background: linear-gradient(90deg, var(--accent), #00c2ff);
+  box-shadow: 0 0 26px rgba(0, 240, 255, 0.35);
+  font-weight: 600;
+}
+.btn.primary:hover { box-shadow: 0 0 44px rgba(0, 240, 255, 0.6); transform: translateY(-2px); }
+.btn.ghost {
+  color: var(--ink);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.03);
+}
+button.btn { cursor: pointer; }
+button.btn:hover { transform: translateY(-2px); }
+.btn[disabled] { opacity: 0.55; cursor: wait; pointer-events: none; }
+.btn.busy { border-color: var(--accent); color: var(--accent); }
+/* cv download → inline theme chooser (morphs inside the same button) — fixed height so status never grows the row */
+#cv-download {
+  min-width: 186px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 0 26px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+#cv-download.choosing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  border-color: var(--accent);
+  box-shadow: 0 0 26px rgba(0, 240, 255, 0.22);
+}
+#cv-download .cv-hint {
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: var(--dim);
+  align-self: center;
+  padding: 0 4px 0 18px;
+}
+#cv-download .cv-opt {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--ink);
+  padding: 0 16px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+#cv-download .cv-opt:hover { background: rgba(0, 240, 255, 0.12); color: var(--accent); text-shadow: 0 0 14px rgba(0,240,255,0.5); }
+#cv-download .cv-sep { width: 1px; background: rgba(255, 255, 255, 0.16); margin: 9px 0; }
+#cv-download .cv-cancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 14px 0 8px;
+  height: 100%;
+  font-size: 24px;
+  line-height: 1;
+  font-weight: 700;
+  color: var(--dim);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+#cv-download .cv-cancel:hover { color: #ff5f7a; }
+#cv-download .cv-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  padding: 0 26px;
+  white-space: nowrap;
+}
+#cv-download .cv-status.ok { color: #37e6a0; border-color: #37e6a0; }
+#cv-download .cv-status.err { color: #ff5f7a; border-color: #ff5f7a; }
+.btn.ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.socials { list-style: none; display: flex; gap: 26px; justify-content: center; }
+.socials a {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--dim);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+.socials a:hover { color: var(--accent); text-shadow: 0 0 16px rgba(0, 240, 255, 0.6); }
+.site-footer {
+  margin-top: 54px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  color: #59616f;
+}
+.site-footer b { color: var(--accent); font-weight: 600; }
+.site-footer .dim-credit { opacity: 0.75; }
+
+/* ── responsive ───────────────────────────────── */
+@media (max-width: 900px) {
+  .panel { padding: 76px 18px; }
+  .panel.experience .pin-stage,
+  .panel.projects .pin-stage { padding: 76px 18px; }
+  .stats { grid-template-columns: repeat(2, auto); gap: 16px 28px; }
+  .skill { grid-template-columns: 150px 1fr; }
+  .skill > span { white-space: normal; overflow-wrap: anywhere; line-height: 1.35; }
+  .contact-actions { flex-direction: column; align-items: center; }
+  .site-footer { flex-direction: column; gap: 8px; }
+  .status-badge { display: none; }
+}
+
+@media (max-width: 720px) {
+  .panel { padding: 68px 14px; }
+  .panel .inner { max-width: 100%; }
+  .term-window { padding: 22px 18px; }
+  /* The scrim keeps its blur here. This used to be forced to `none` for weak
+     GPUs, which left mobile with only the dark gradient — so hero read as
+     "less blur" than tablet and contact read as none at all. The per-section
+     radii are modest and the scrim ellipse is small, and this same block
+     already backdrop-filters the nav dots, so the old exemption was costing
+     consistency for very little. */
+  h1 { font-size: clamp(34px, 10vw, 44px); }
+  h2 { font-size: clamp(26px, 7.4vw, 34px); margin-bottom: 16px; }
+  .eyebrow { font-size: 10px; margin-bottom: 12px; }
+  .body { font-size: 14.5px; }
+  .tagline { font-size: 13.5px; }
+  .stats { gap: 12px 20px; margin-top: 18px; }
+  .stats li b { font-size: 22px; }
+  /* skills was fixed to 100svh and clipped on short viewports;
+     let it grow naturally and stack the label above the bar on phones */
+  .panel.skills { height: auto; min-height: 100svh; align-items: flex-start; }
+  .skill { grid-template-columns: 1fr; gap: 6px; margin-bottom: 10px; }
+  .skill > span { white-space: normal; overflow-wrap: anywhere; line-height: 1.4; font-size: 11px; }
+  .skill > i { height: 6px; }
+  .skill > i b { font-size: 9px; }
+  .skill-group { margin-bottom: 14px; }
+  .skill-group h3 { margin-bottom: 8px; }
+  .chip-cloud span { font-size: 9.5px; padding: 4px 8px; }
+  .commit p, .project p { font-size: 12.5px; }
+  .panel.experience .pin-stage,
+  .panel.projects .pin-stage { padding: 68px 14px; }
+  .commit-scroll { --commit-box: 40svh; }
+  .project-scroll { --project-box: 60svh; }
+  .project { padding: 11px 14px; }
+  /* dots move to the bottom, horizontal */
+  #dots {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: 14px;
+    translate: -50% 0;
+    flex-direction: row;
+    gap: 14px;
+    background: rgba(8, 10, 17, 0.6);
+    border: 1px solid var(--line);
+    padding: 9px 14px;
+    border-radius: 99px;
+    backdrop-filter: blur(8px);
+  }
+  .dot::after { display: none; }
+  .scroll-hint { bottom: 64px; }
+  .topbar { padding: 16px 18px; }
+  .logo { font-size: 16px; }
+}

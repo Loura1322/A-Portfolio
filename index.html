@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morteza Vaezi — Full-Stack JavaScript Developer</title>
+  <meta name="description" content="Portfolio of Morteza Vaezi, Junior developer. Step inside the dev cave." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌨️</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ══════════ LOADER ══════════ -->
+  <div id="loader" aria-hidden="false">
+    <div class="loader-box">
+      <pre id="boot-log"></pre>
+      <div class="loader-bar"><span id="loader-fill"></span></div>
+      <p class="loader-hint">morteza@devcave:~$ ./launch_portfolio.sh</p>
+    </div>
+  </div>
+
+  <!-- ══════════ 3D SCENE ══════════ -->
+  <canvas id="webgl"></canvas>
+
+  <!-- cinematic vignette -->
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- ══════════ TOP BAR ══════════ -->
+  <header class="topbar">
+    <a class="logo" href="#hero" data-goto="0">&lt;<span>MV</span>/&gt;</a>
+    <div class="status-badge"><i></i>OPEN TO WORK</div>
+  </header>
+
+  <!-- ══════════ NAV DOTS ══════════ -->
+  <nav id="dots" aria-label="Sections"></nav>
+
+  <!-- ══════════ CONTENT PANELS ══════════ -->
+  <main id="content">
+
+    <!-- ── 00 · HERO ── -->
+    <section class="panel hero align-bottom-left" id="hero" data-index="0">
+      <div class="inner term-window">
+        <div class="term-body">
+          <p class="eyebrow reveal">// HELLO WORLD</p>
+          <h1 class="reveal d1">Morteza&nbsp;Vaezi</h1>
+          <p class="role reveal d2">A <span class="accent">Junior</span> Developer</p>
+          <p class="tagline reveal d3">I build fast, beautiful &amp; scalable web apps —<br />from pixel-perfect UIs to rock-solid APIs.</p>
+        </div>
+      </div>
+      <div class="scroll-hint reveal d4"><span></span>SCROLL TO LOOK AROUND<i class="mouse-wheel"></i></div>
+    </section>
+
+    <!-- ── 01 · ABOUT ── -->
+    <section class="panel about align-right" id="about" data-index="1">
+      <div class="inner term-window">
+        <div class="term-body">
+          <p class="eyebrow reveal">01 // ABOUT_ME.TXT</p>
+          <h2 class="reveal d1">Code. Coffee.<br /><span class="accent">Creation.</span></h2>
+          <p class="body reveal d2">
+            I'm a full-stack developer (not an engineer!) studying mathematics, with <b>3+ years</b> of experience turning messy problems
+            into elegant software. From real-time dashboards to headless commerce,
+            I own every layer of the stack — and I genuinely love each one.
+          </p>
+          <p class="body dim reveal d3">
+            When I'm not shipping features, I'm probably tweaking this room's RGB,
+            contributing to open source, or hunting down that one race condition.
+          </p>
+          <ul class="stats reveal d4">
+            <li><b data-count="3">0</b><span>years coding</span></li>
+            <li><b data-count="27">0</b><span>projects shipped</span></li>
+            <li><b data-count="2500" data-suffix="+">0</b><span>tasks completed</span></li>
+            <li><b data-count="9999" data-suffix="+">0</b><span>cups of coffee</span></li>
+          </ul>
+          <p class="meta reveal d5"><span class="pin">⌖</span> Based in Zanjan · Working worldwide · UTC+3:30</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 02 · EXPERIENCE ── -->
+    <section class="panel experience align-right" id="experience" data-index="2">
+      <div class="pin-stage">
+        <div class="inner term-window">
+          <div class="term-body">
+            <p class="eyebrow reveal">02 // GIT LOG --CAREER</p>
+            <h2 class="reveal d1">Commit <span class="accent">History</span></h2>
+
+            <div class="commit-scroll reveal d2" id="commit-scroll">
+              <div class="commit-track" id="commit-track">
+
+                <div class="commit">
+                  <div class="commit-head"><span class="hash">f4a9c2e</span><span class="branch">HEAD → Freelance</span></div>
+                  <h3>Automated Order Fulfillment System <em>· 2025</em></h3>
+                  <p>Integrated Node.js web scraping with a custom WordPress plugin for automated order processing.</p>
+                </div>
+
+                <div class="commit">
+                  <div class="commit-head"><span class="hash">b7d31f0</span></div>
+                  <h3>Automated Movie &amp; TV Series Server System <em>· 2025</em></h3>
+                  <p>Created an auto-linking system and server manager built entirely with PHP, including a custom WordPress plugin.</p>
+                </div>
+
+                <div class="commit">
+                  <div class="commit-head"><span class="hash">9c1e77a</span></div>
+                  <h3>Telegram Bot for Automated Giveaways <em>· 2024</em></h3>
+                  <p>Built a fast and reliable automated giveaway bot using Node.js and Express.js.</p>
+                </div>
+
+                <div class="commit">
+                  <div class="commit-head"><span class="hash">2e08a55</span></div>
+                  <h3>Development of the Custom darefani.ir Plugin <em>· 2024</em></h3>
+                  <p>Developed a custom obituary marketplace and announcement plugin for WordPress.</p>
+                </div>
+
+                <div class="commit">
+                  <div class="commit-head"><span class="hash">8f2a1b3</span></div>
+                  <h3>Evento Plugin Development &amp; Localization <em>· 2023</em></h3>
+                  <p>Developed custom features and handled full Persian localization for the Evento ecosystem.</p>
+                </div>
+
+                <div class="commit">
+                  <div class="commit-head"><span class="hash">5ab30d1</span></div>
+                  <h3>Building a Terminal-Style WordPress Theme <em>· 2023</em></h3>
+                  <p>Designed and developed a unique terminal-inspired WordPress theme with custom styling.</p>
+                </div>
+
+                <div class="commit">
+                  <div class="commit-head"><span class="hash">4c9d2e1</span></div>
+                  <h3>StoreYab Plugin <em>· 2022</em></h3>
+                  <p>Engineered a custom WordPress plugin for advanced store discovery and management.</p>
+                </div>
+
+                <div class="commit">
+                  <div class="commit-head"><span class="hash">1a7b4c9</span></div>
+                  <h3>The GISman.ir Project Series <em>· 2022</em></h3>
+                  <p>A foundational project series showcasing my comprehensive growth as a web developer.</p>
+                </div>
+
+                <div class="commit">
+                  <div class="commit-head"><span class="hash">0000000</span><span class="branch">root</span></div>
+                  <h3>Initial commit <em>· 2022</em></h3>
+                  <p>A blinking cursor, an old pc, and one very stubborn <code>Hello, world</code>.</p>
+                </div>
+
+              </div>
+            </div>
+
+            <p class="meta reveal d3"><span class="pin">λ</span> 8 projects · Independent Freelancer · Limitless coffee</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 03 · SKILLS ── -->
+    <section class="panel skills align-left" id="skills" data-index="3">
+      <div class="inner term-window">
+        <div class="term-body">
+          <p class="eyebrow reveal">03 // STACK.JSON</p>
+          <h2 class="reveal d1">Weapons of<br /><span class="accent">Choice</span></h2>
+
+          <div class="skill-group reveal d2">
+            <h3>&lt;Frontend /&gt;</h3>
+            <div class="skill"><span>JS/TS · React · Next.js</span><i style="--w:85%"><b>85</b></i></div>
+            <div class="skill"><span>HTML/CSS · Tailwind · Bootstrap</span><i style="--w:90%"><b>90</b></i></div>
+            <div class="skill"><span>jQuery · AJAX · DOM</span><i style="--w:95%"><b>95</b></i></div>
+          </div>
+
+          <div class="skill-group reveal d3">
+            <h3>[ Backend &amp; Data ]</h3>
+            <div class="skill"><span>PHP · WordPress · WooCommerce</span><i style="--w:95%"><b>95</b></i></div>
+            <div class="skill"><span>Node.js · Express</span><i style="--w:90%"><b>90</b></i></div>
+            <div class="skill"><span>Puppeteer · Cheerio · Scraping</span><i style="--w:88%"><b>88</b></i></div>
+          </div>
+
+          <div class="skill-group reveal d4">
+            <h3>{ DevOps &amp; Sys }</h3>
+            <div class="skill"><span>Linux (Arch/Ubuntu) · Bash</span><i style="--w:85%"><b>85</b></i></div>
+            <div class="skill"><span>Docker · Nginx · Azure VMs</span><i style="--w:80%"><b>80</b></i></div>
+          </div>
+
+          <div class="skill-group reveal d5">
+            <h3>( Systems )</h3>
+            <div class="skill"><span>C · C++</span><i style="--w:45%"><b>45</b></i></div>
+            <div class="skill"><span>Go · Rust</span><i style="--w:35%"><b>35</b></i></div>
+          </div>
+
+          <div class="chip-cloud reveal d6">
+            <span>Playwright</span><span>yt-dlp</span><span>GOST</span><span>WireGuard</span><span>MySQL</span>
+            <span>REST API</span><span>Zsh</span><span>GraphQL</span><span>WebSockets</span><span>Git</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 04 · PROJECTS ── -->
+    <section class="panel projects align-left" id="projects" data-index="4">
+      <div class="pin-stage" id="projects-pin-stage">
+        <div class="inner term-window">
+          <div class="term-body">
+            <p class="eyebrow reveal">04 // GIT LOG --PROJECTS</p>
+            <h2 class="reveal d1">Selected <span class="accent">Work</span></h2>
+
+            <div class="project-scroll reveal d2" id="project-scroll">
+              <div class="project-track" id="project-track">
+
+                <article class="project">
+                  <header><span class="p-num">P.01</span><h3>Homa Browser Extension</h3><em>2026</em></header>
+                  <p>The first browser extension for Chrome &amp; Firefox to connect directly to Xray-core configurations.</p>
+                  <ul class="tags"><li>JavaScript</li><li>WebExtensions</li><li>Xray-core</li><li>Proxy</li></ul>
+                </article>
+
+                <article class="project">
+                  <header><span class="p-num">P.02</span><h3>Mehregan Cloud</h3><em>2026</em></header>
+                  <p>A self-hosted private cloud solution with a PHP backend and an Electron.js desktop client for resilient file access.</p>
+                  <ul class="tags"><li>Electron.js</li><li>PHP</li><li>Node.js</li><li>Desktop App</li></ul>
+                </article>
+
+                <article class="project">
+                  <header><span class="p-num">P.03</span><h3>Hamsu Text Processor</h3><em>2025</em></header>
+                  <p>A smart text processor that transforms raw, unreadable AI outputs into neatly organized, RTL-aligned documents with PDF export support.</p>
+                  <ul class="tags"><li>JavaScript</li><li>PDF Generation</li><li>Math Rendering</li><li>Text Processing</li></ul>
+                </article>
+
+                <article class="project">
+                  <header><span class="p-num">P.04</span><h3>Commuter Destination Alarm</h3><em>2025</em></header>
+                  <p>A location-based web application that triggers an alarm when approaching a set destination radius.</p>
+                  <ul class="tags"><li>Geolocation API</li><li>JavaScript</li><li>PWA</li><li>Maps</li></ul>
+                </article>
+
+                <article class="project">
+                  <header><span class="p-num">P.05</span><h3>Telegram Bot Ecosystem</h3><em>2024</em></header>
+                  <p>A suite of custom Telegram bots for multi-platform media downloading, university cafeteria reservations, and file management.</p>
+                  <ul class="tags"><li>Node.js</li><li>Express</li><li>Web Scraping</li><li>Telegram API</li></ul>
+                </article>
+
+                <article class="project">
+                  <header><span class="p-num">P.06</span><h3>Chrome Dino Cheat Extension</h3><em>2023</em></header>
+                  <p>A fun browser extension that modifies the offline Chrome Dinosaur game to make the player invincible.</p>
+                  <ul class="tags"><li>JavaScript</li><li>DOM Manipulation</li><li>WebExtensions</li></ul>
+                </article>
+
+                <article class="project">
+                  <header><span class="p-num">P.07</span><h3>App Andish Video Conferencing</h3><em>2020</em></header>
+                  <p>A video conferencing platform optimized for shared hosting, built to help schools conduct online classes during COVID-19.</p>
+                  <ul class="tags"><li>PHP</li><li>WebRTC</li><li>JavaScript</li><li>Shared Hosting</li></ul>
+                </article>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 05 · CONTACT ── -->
+    <section class="panel contact align-center" id="contact" data-index="5">
+      <div class="inner term-window">
+        <div class="term-body">
+          <p class="eyebrow reveal">05 // SEND_MESSAGE()</p>
+          <h2 class="reveal d1">Let's build something<br /><span class="accent">great together.</span></h2>
+          <p class="body reveal d2">Have a project in mind, or just want to talk shop?<br />My inbox is always open — coffee's on me. ☕</p>
+          <div class="contact-actions reveal d3">
+            <a class="btn primary" href="mailto:info@mortezavaezi.ir">info@mortezavaezi.ir</a>
+            <button class="btn ghost" id="cv-download" type="button">Download CV ↓</button>
+          </div>
+          <ul class="socials reveal d4">
+            <li><a href="https://github.com/Selin2005" target="_blank" rel="noopener">GitHub ↗</a></li>
+            <li><a href="linkedin.com/in/morteza-vaezi-647170215/" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+            <li><a href="https://t.me/a_or_some_name" target="_blank" rel="noopener">Telegram ↗</a></li>
+          </ul>
+          <footer class="site-footer reveal d5">
+            <span>© 2026 Morteza Vaezi</span>
+            <span>Crafted with <b>❤️</b> &amp; too much coffee</span>
+            <span class="dim-credit">Album art © Mohsen Namjoo</span>
+          </footer>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- classic libs first (globals), then ES modules -->
+  <script src="js/lib/gsap.min.js"></script>
+  <script src="js/lib/ScrollTrigger.min.js"></script>
+  <script src="js/lib/lenis.min.js"></script>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./js/lib/three.module.js",
+      "three/addons/": "./js/lib/addons/"
+    }
+  }
+  </script>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
